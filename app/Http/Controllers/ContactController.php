@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,6 +29,13 @@ class ContactController extends Controller
 
         $contact = $request->user()->contacts()->create($data);
 
+        ActivityLog::create([
+            'user_id' => $request->user()->id,
+            'action' => 'contact_created',
+            'description' => "Created contact: {$contact->name}",
+            'ip_address' => $request->ip(),
+        ]);
+
         return response()->json($contact, 201);
     }
 
@@ -51,6 +59,13 @@ class ContactController extends Controller
 
         $contact->update($data);
 
+        ActivityLog::create([
+            'user_id' => $request->user()->id,
+            'action' => 'contact_updated',
+            'description' => "Updated contact: {$contact->name}",
+            'ip_address' => $request->ip(),
+        ]);
+
         return response()->json($contact);
     }
 
@@ -58,7 +73,15 @@ class ContactController extends Controller
     {
         abort_if($contact->user_id !== $request->user()->id, 403);
 
+        $name = $contact->name;
         $contact->delete();
+
+        ActivityLog::create([
+            'user_id' => $request->user()->id,
+            'action' => 'contact_deleted',
+            'description' => "Deleted contact: {$name}",
+            'ip_address' => $request->ip(),
+        ]);
 
         return response()->json(null, 204);
     }
