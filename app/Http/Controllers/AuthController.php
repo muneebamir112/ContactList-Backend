@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -33,6 +35,8 @@ class AuthController extends Controller
             'description' => "User registered: {$user->email}",
             'ip_address' => $request->ip(),
         ]);
+
+        Mail::to($user->email)->send(new WelcomeMail($user));
 
         return response()->json(['token' => $token, 'user' => $user], 201);
     }
