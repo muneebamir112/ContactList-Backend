@@ -11,7 +11,7 @@ class ActivityLogController extends Controller
     {
         $logs = ActivityLog::with('user:id,name,email')
             ->latest()
-            ->paginate(100);
+            ->paginate(15);
 
         return response()->json($logs);
     }

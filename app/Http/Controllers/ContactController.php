@@ -13,7 +13,7 @@ class ContactController extends Controller
     {
         $contacts = $request->user()->contacts()
             ->orderBy('name')
-            ->get();
+            ->paginate(10);
 
         return response()->json($contacts);
     }
