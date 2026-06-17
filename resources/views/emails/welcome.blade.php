@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Contact List</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: #f0e4e4; margin: 0; padding: 0; }
         .container { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .header { background-color: #4f46e5; padding: 32px; text-align: center; }
         .header h1 { color: #ffffff; margin: 0; font-size: 24px; }
