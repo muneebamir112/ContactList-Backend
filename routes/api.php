@@ -15,5 +15,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 
     Route::apiResource('contacts', ContactController::class);
-    Route::get('/logs', [ActivityLogController::class, 'index']);
+
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin/logs', [ActivityLogController::class, 'index']);
+    });
 });
